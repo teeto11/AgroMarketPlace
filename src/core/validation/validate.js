@@ -7,7 +7,6 @@ module.exports = (object, schema) => {
   
     if (validationResults.error) {
       const detailedErrors = validationResults.error.details.map((error) => error.message);
-      console.log(detailedErrors)
       response.error = detailedErrors;
     } else {
       response.value = object;

@@ -1,19 +1,22 @@
 const marketService = require('../services/market')
 const Response = require('../lib/response_manager');
 const HttpStatus = require('../constants/httpStatus');
+const marketSchema = require('../core/validation/schemas/marketSchema');
+const validate = require('../core/validation/validate');
 
 const createMarket = async (req,res) => {
    // console.log(req.files)
     const input = req.body
-    if(!input.name || !input.description || !input.category || !input.latitude || !input.longitude){
+    const {error,value} = validate(input,marketSchema)
+    if(error){
         return Response.failure(res,{
-            message: 'please fill all required fields',
+            message:error,
             data: [],
         },HttpStatus.BadRequest)
     }
     
    try{
-        const {name,description,category,latitude,longitude} = req.body;
+        const {name,description,category,latitude,longitude} = value;
         const buffer = [];
           req.files.map((file)=>{
               buffer.push(file.buffer)
