@@ -19,6 +19,9 @@ const AdminSchema = new Schema({
         minlength: 7,
         trim: true,
       },
+      token:{
+          type:string
+      }
 },{
     timestamps:true
 })

@@ -4,7 +4,6 @@ function respond(res, data, httpCode) {
     code: httpCode,
     message: data.message,
     response: data.data,
-    data: data.response,
   };
   if (data.total) {
     response.total = data.total;

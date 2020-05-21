@@ -15,7 +15,8 @@ const MarketSchema = new Schema({
         required:true,
     },
     image:{
-        buffer:[Buffer],
+        type:[Buffer],
+        
     },
     latitude:{
        type :Number,
@@ -30,4 +31,4 @@ const MarketSchema = new Schema({
     timestamps:true
 });
 const Market = mongoose.model('Market',MarketSchema);
-module.export = Market
+module.exports = Market
