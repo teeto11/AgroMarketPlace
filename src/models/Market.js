@@ -1,0 +1,29 @@
+const mongoose = require('mongoose')
+const {Schema} = mongoose
+
+const MarketSchema = new Schema({
+    name:{
+        type:String,
+        required:true,
+    },
+    description:{
+        type:String,
+        required:true,
+    },
+    category:{
+        type:String,
+        required:true,
+    },
+    image:{
+        buffer:[Buffer],
+    },
+    latitude:{
+       type :Number,
+       required:true,
+    },
+    longitude:{
+        type :Number,
+        required:true,
+     } 
+
+})
