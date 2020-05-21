@@ -26,4 +26,8 @@ const MarketSchema = new Schema({
         required:true,
      } 
 
-})
+},{
+    timestamps:true
+});
+const Market = mongoose.model('Market',MarketSchema);
+module.export = Market
