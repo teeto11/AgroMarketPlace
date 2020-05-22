@@ -5,8 +5,8 @@ const app  = express();
 const marketRoutes = require('./routes/market')
 const adminRoutes = require('./routes/Admin')
 const dotenv = require('dotenv');
-require('./lib/dbconn')
 dotenv.config();
+require('./lib/dbconn')
 
 const { PORT } = config;
 app.use(express.json())
