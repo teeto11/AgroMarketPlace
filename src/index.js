@@ -5,7 +5,7 @@ const app  = express();
 const marketRoutes = require('./routes/market')
 const adminRoutes = require('./routes/Admin')
 require('./lib/dbconn')
-const { port } = config;
+const { PORT } = config;
 app.use(express.json())
 
 
@@ -15,6 +15,6 @@ app.get('/', (req, res) => {
  });
 marketRoutes.setup(app);
 adminRoutes.setup(app);
-app.listen(port,()=>{
-    console.log(`${config. appName} started on port --> ${port}`)
+app.listen(PORT,()=>{
+    console.log(`${config. appName} started on port --> ${PORT}`)
 }) 
