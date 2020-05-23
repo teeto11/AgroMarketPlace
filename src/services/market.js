@@ -12,10 +12,15 @@ const getMarkets = async (query) => marketModel.find(query)
 
 const deleteMarket = (paramObj) => marketModel.deleteOne(paramObj)
 
-
+const getMarketByLocation = async ({latitude,longitude}) => {
+   const markets = await marketModel.find({address:{$near:[longitude,latitude], $maxDistance: 5} }); 
+    return markets
+  
+}
 module.exports={
     save,
     updateMarket,
     getMarkets,
-    deleteMarket
+    deleteMarket,
+    getMarketByLocation
 }

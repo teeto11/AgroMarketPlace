@@ -3,7 +3,7 @@ const Response = require('../lib/response_manager');
 const HttpStatus = require('../constants/httpStatus');
 const marketSchema = require('../core/validation/schemas/marketSchema');
 const validate = require('../core/validation/validate');
-
+const fs = require('fs');
 const createMarket = async (req,res) => {
    // console.log(req.files)
     const input = req.body
@@ -16,17 +16,22 @@ const createMarket = async (req,res) => {
     }
     
    try{
-        const {name,description,category,latitude,longitude} = value;
-        const buffer = [];
-          req.files.map((file)=>{
-              buffer.push(file.buffer)
-        })
+       function base64_encode(file) {
+    // read binary data
+    var bitmap = fs.readFileSync(file);
+    // convert binary data to base64 encoded string
+    return new Buffer(bitmap).toString('base64');
+}
+        const {name,description,category,address} = value;
+         const buffer = [];
+           req.files.map((file)=>{
+                buffer.push(file.buffer.toString('base64'))     
+         })
         const marketObj = {
             name,
             description,
             category,
-            latitude,
-            longitude,
+            address,
             image:buffer,
         }
         const data = await marketService.save(marketObj)
@@ -73,10 +78,23 @@ const updateMarket = async(req,res) => {
 const getMarkets = async(req,res) => {
 
     const {query} = req
-    console.log(`query string --> ${query}`)
+    //JSON.stringify(query)
+   console.log(`query string --> ${JSON.stringify(query)}`)
     try{
+        if(query.latitude && query.longitude){
+            const marketParam = {
+                latitude:query.longitude,
+                longitude:query.longitude
+            }
+            const getMarketByLocation = await marketService.getMarketByLocation(marketParam)
+           console.log(`markets --> ${getMarketByLocation}`)
+        
+           return Response.success(res,{
+            message:"markets successfully fetched",
+            data:getMarketByLocation
+        },HttpStatus.OK)
+        }
         const markets = await marketService.getMarkets(query)
-       
         if(markets){
             return Response.success(res,{
                 message:"markets successfully fetched",

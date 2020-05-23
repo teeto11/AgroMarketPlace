@@ -15,17 +15,21 @@ const MarketSchema = new Schema({
         required:true,
     },
     image:{
-        type:[Buffer],
+        type:[String],
         
     },
-    latitude:{
-       type :Number,
-       required:true,
-    },
-    longitude:{
-        type :Number,
-        required:true,
-     } 
+    address:{
+        type:[Number],
+        index: '2d'
+    }
+    // latitude:{
+    //    type :Number,
+    //    required:true,
+    // },
+    // longitude:{
+    //     type :Number,
+    //     required:true,
+    //  } 
 
 },{
     timestamps:true
