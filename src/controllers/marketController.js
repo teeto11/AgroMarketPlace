@@ -73,8 +73,10 @@ const updateMarket = async(req,res) => {
 const getMarkets = async(req,res) => {
 
     const {query} = req
+    console.log(`query string --> ${query}`)
     try{
         const markets = await marketService.getMarkets(query)
+       
         if(markets){
             return Response.success(res,{
                 message:"markets successfully fetched",
