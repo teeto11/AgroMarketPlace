@@ -16,12 +16,6 @@ const createMarket = async (req,res) => {
     }
     
    try{
-       function base64_encode(file) {
-    // read binary data
-    var bitmap = fs.readFileSync(file);
-    // convert binary data to base64 encoded string
-    return new Buffer(bitmap).toString('base64');
-}
         const {name,description,category,address} = value;
          const buffer = [];
            req.files.map((file)=>{
@@ -78,8 +72,6 @@ const updateMarket = async(req,res) => {
 const getMarkets = async(req,res) => {
 
     const {query} = req
-    //JSON.stringify(query)
-   console.log(`query string --> ${JSON.stringify(query)}`)
     try{
         if(query.latitude && query.longitude){
             const marketParam = {
@@ -87,8 +79,6 @@ const getMarkets = async(req,res) => {
                 longitude:query.longitude
             }
             const getMarketByLocation = await marketService.getMarketByLocation(marketParam)
-           console.log(`markets --> ${getMarketByLocation}`)
-        
            return Response.success(res,{
             message:"markets successfully fetched",
             data:getMarketByLocation
