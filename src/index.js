@@ -2,12 +2,22 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const config = require('./config/config');
 const app  = express();
+const marketRoutes = require('./routes/market')
+const adminRoutes = require('./routes/Admin')
+const dotenv = require('dotenv');
+dotenv.config();
+require('./lib/dbconn')
 
-const { port } = config;
+const { PORT } = config;
 app.use(express.json())
 
 
-
-app.listen(port,()=>{
-    console.log(`${config. appName} started on port --> ${port}`)
+app.get('/', (req, res) => {
+    res.send('welcome');
+    console.log('started');
+ });
+marketRoutes.setup(app);
+adminRoutes.setup(app);
+app.listen(PORT,()=>{
+    console.log(`${config. appName} started on port --> ${PORT}`)
 }) 
